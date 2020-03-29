@@ -2,28 +2,18 @@ package expensetracker.webapp;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.fit.pdfdom.PDFDomTree;
 
-import jj2000.j2k.roi.encoder.RectROIMaskGenerator;
-import technology.tabula.HasText;
 import technology.tabula.ObjectExtractor;
 import technology.tabula.Page;
 import technology.tabula.PageIterator;
 import technology.tabula.Rectangle;
 import technology.tabula.RectangularTextContainer;
 import technology.tabula.Table;
-import technology.tabula.TextElement;
 import technology.tabula.detectors.NurminenDetectionAlgorithm;
-import technology.tabula.detectors.SpreadsheetDetectionAlgorithm;
 import technology.tabula.extractors.BasicExtractionAlgorithm;
-import technology.tabula.extractors.SpreadsheetExtractionAlgorithm;
 
 public class Trrial {
 	public static void main(String[] args) {
