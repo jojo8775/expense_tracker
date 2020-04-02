@@ -41,12 +41,12 @@ public class DataScrubberImpl {
 			exclusionList.add("Payment due date");
 			exclusionList.add("MR CHIRANJEEB");
 			exclusionList.add("Continued on page");
-			exclusionList.add("SBVREP_");
-			exclusionList.add("SBVREP_");
-			exclusionList.add("SBVREP_");
-			exclusionList.add("SBVREP_");
-			exclusionList.add("SBVREP_");
-			exclusionList.add("SBVREP_");
+			exclusionList.add("4537 471 494 457 010");
+			exclusionList.add("Ending points");
+			exclusionList.add("Points earned");
+			exclusionList.add("cheque or money orde");
+			exclusionList.add("4 of 4");
+			exclusionList.add("Date revised");
 			exclusionList.add("SBVREP_");
 			exclusionList.add("SBVREP_");
 			exclusionList.add("SBVREP_");
