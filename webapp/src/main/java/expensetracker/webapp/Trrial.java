@@ -17,7 +17,8 @@ import technology.tabula.extractors.BasicExtractionAlgorithm;
 
 public class Trrial {
 	public static void main(String[] args) {
-		new Trrial().generateHTMLFromPDF("src/resources/test_file.pdf");
+//		new Trrial().generateHTMLFromPDF("src/resources/test_file.pdf");
+		new Trrial().generateHTMLFromPDF("src/resources/test_file_scotia.pdf");
 	}
 
 	private void generateHTMLFromPDF(String fileName) {
@@ -60,6 +61,12 @@ public class Trrial {
 					System.out.println("Printing content of the table " + ++tableCount + " ...");
 					for (List<RectangularTextContainer> rows : table.getRows()) {
 						for (RectangularTextContainer row : rows) {
+							
+							if(row.getText().isBlank()) {
+								continue;
+							}
+							
+							
 							System.out.println("------------ number of cells : " + row.getTextElements().size());
 							System.out.println(row.getText());
 							System.out.println("--------------------------------");
