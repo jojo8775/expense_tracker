@@ -8,8 +8,9 @@ import org.apache.commons.lang3.tuple.Pair;
 public class DataScrubberImpl {
 	private boolean debugFlag = true;
 	private List<String> exclusionList = new ArrayList<>();
-	
-	public DataScrubberImpl(StatementSource statementSource) {
+	private final Logger logger;
+	public DataScrubberImpl(StatementSource statementSource, Logger logger) {
+		this.logger = logger;
 		
 		switch (statementSource) {
 		case RBC_DEBIT:
@@ -90,5 +91,7 @@ public class DataScrubberImpl {
 		if (debugFlag) {
 			System.out.println(msg);
 		}
+		
+		logger.info(msg);
 	}
 }

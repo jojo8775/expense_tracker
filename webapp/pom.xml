@@ -25,16 +25,13 @@
 				<version>3.8.0</version>
 				<configuration>
 					<!-- <release>${java.version}</release> -->
-				    <source>${java.version}</source> 
-				    <target>${java.version}</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/resources</directory>
-			</resource>
-		</resources>
+	<!-- <resources> <resource> <directory>src/resources</directory> </resource> 
+		</resources> -->
 	</build>
 	<dependencies>
 		<dependency>
@@ -62,6 +59,11 @@
 			<groupId>technology.tabula</groupId>
 			<artifactId>tabula</artifactId>
 			<version>1.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.6</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -1,6 +1,5 @@
 package expensetracker.webapp;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,15 +25,14 @@ public class TableDataExtractor {
 	}
 
 	public void read() {
-		readPdf("src/resources/test_file.pdf", new DataScrubberImpl(StatementSource.RBC_CREDIT), new DoubleExtractorWithDollarSign());
+		readPdf("/test_file.pdf", new DataScrubberImpl(StatementSource.RBC_CREDIT, new Logger()), new DoubleExtractorWithDollarSign());
 	}
 
 	public void readPdf(String fileName, DataScrubberImpl dataScrubber, DoubleExtractor doubleExtractor) {
 		LinkedList<String> list = new LinkedList<String>();
-		File file = new File(fileName);
 		
 		try {
-			PDDocument pdfDocument = PDDocument.load(file);
+			PDDocument pdfDocument = PDDocument.load(getClass().getResourceAsStream(fileName));
 
 			ObjectExtractor extractor = new ObjectExtractor(pdfDocument);
 			NurminenDetectionAlgorithm detectionAlgorithm = new NurminenDetectionAlgorithm();
