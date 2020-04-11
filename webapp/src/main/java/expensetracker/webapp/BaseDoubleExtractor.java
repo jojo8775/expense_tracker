@@ -65,14 +65,14 @@ public abstract class BaseDoubleExtractor implements DoubleExtractor{
 			return true;
 		}
 		
-		boolean foundDecimal = false, foundSign = false;
+		boolean foundDecimal = false, foundSign = false, foundFirstNum = false;
 		
 		for(char ch : str.toCharArray()) {
 			if(!Character.isDigit(ch)) {
-				if(ch == '.' && !foundDecimal) {
+				if(ch == '.' && !foundDecimal && foundFirstNum) {
 					foundDecimal = true;
 				}
-				else if((ch == '-' || ch == '+') && !foundSign) {
+				else if((ch == '-' || ch == '+') && !foundSign && !foundFirstNum) {
 					foundSign = true;
 				}
 				else if(ch == ',') {
@@ -82,13 +82,16 @@ public abstract class BaseDoubleExtractor implements DoubleExtractor{
 					return true;
 				}
 			}
+			else {
+			    foundFirstNum = true;
+			}
 		}
 		
-		return false;
+		return !foundFirstNum;
 	}
 	
 	private Double parseDouble(String str) {
-		if(str.isEmpty()) {
+		if(str.isBlank()) {
 			return null;
 		}
 		

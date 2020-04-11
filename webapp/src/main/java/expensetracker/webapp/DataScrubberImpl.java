@@ -47,7 +47,7 @@ public class DataScrubberImpl {
 			exclusionList.add("cheque or money orde");
 			exclusionList.add("4 of 4");
 			exclusionList.add("Date revised");
-			exclusionList.add("SBVREP_");
+			exclusionList.add("Beginning points");
 			exclusionList.add("SBVREP_");
 			exclusionList.add("SBVREP_");
 			exclusionList.add("SBVREP_");
