@@ -26,7 +26,7 @@ public class TableDataExtractorMultiline {
     }
 
     public void read() {
-        readPdf("src/resources/test_file.pdf", new DataScrubberImpl(StatementSource.RBC_CREDIT),
+        readPdf("src/resources/test_file.pdf", new DataScrubberImpl(StatementSource.RBC_CREDIT, new Logger()),
                 new DoubleExtractorWithDollarSign());
     }
 
