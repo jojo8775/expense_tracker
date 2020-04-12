@@ -1,7 +1,7 @@
 package expensetracker.webapp;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,21 +21,21 @@ public class TableDataExtractorMultiline {
 
     private final boolean debugFalg = false;
 
-    public static void main(String[] args) {
-        new TableDataExtractor().read();
-    }
+//    public static void main(String[] args) {
+//        new TableDataExtractor().read();
+//    }
 
     public void read() {
-        readPdf("src/resources/test_file.pdf", new DataScrubberImpl(StatementSource.RBC_CREDIT, new Logger()),
-                new DoubleExtractorWithDollarSign());
+        var entries = readPdf("src/resources/test_file.pdf", new DoubleExtractorWithDollarSign());
+        new DataScrubberImpl(StatementSource.RBC_CREDIT, new Logger()).getScrubbedEntries(entries);
     }
 
-    public void readPdf(String fileName, DataScrubberImpl dataScrubber, DoubleExtractor doubleExtractor) {
+    public List<Pair<String, Double>> readPdf(String fileName, DoubleExtractor doubleExtractor) {
         LinkedList<String> list = new LinkedList<String>();
-        File file = new File(fileName);
+        var entries = new ArrayList<Pair<String, Double>>();
 
         try {
-            PDDocument pdfDocument = PDDocument.load(file);
+            PDDocument pdfDocument = PDDocument.load(getClass().getResourceAsStream(fileName));
 
             ObjectExtractor extractor = new ObjectExtractor(pdfDocument);
             NurminenDetectionAlgorithm detectionAlgorithm = new NurminenDetectionAlgorithm();
@@ -71,7 +71,7 @@ public class TableDataExtractorMultiline {
 
                                 if (val.getLeft() == StatementRowType.AMOUNT_WITH_DETAILS) {
                                     // System.out.println(rowStr + " => " + val.getRight());
-                                    dataScrubber.addEntry(Pair.of(rowStr, val.getRight()));
+                                    entries.add(Pair.of(rowStr, val.getRight()));
 
                                 } else {
                                     String prev = list.isEmpty() ? "<Blank>" : list.get(0);
@@ -80,7 +80,7 @@ public class TableDataExtractorMultiline {
                                         prev = list.get(1) + " " + prev;
                                     }
                                     
-                                    dataScrubber.addEntry(Pair.of(prev, val.getRight()));
+                                    entries.add(Pair.of(prev, val.getRight()));
                                     // System.out.println(prev + " => " + val.getRight());
                                 }
                             } else if (!rowStr.isBlank()) {
@@ -99,6 +99,8 @@ public class TableDataExtractorMultiline {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
+        return entries;
     }
 
     // private Pair<StatementRowType, Double> tryGetDollarValue(String strValue) {
