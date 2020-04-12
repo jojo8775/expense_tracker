@@ -98,63 +98,6 @@ public class TableDataExtractor {
 		return entries;
 	}
 
-//	private Pair<StatementRowType, Double> tryGetDollarValue(String strValue) {
-//		if (strValue == null || strValue.isBlank()) {
-//			return null;
-//		}
-//
-//		StatementRowType rowType = null;
-//
-//		if (strValue.charAt(0) == '$') {
-//			var pair = stripDollarSignIfAny(strValue);
-//			if (!pair.getLeft()) {
-//				return null;
-//			}
-//			strValue = pair.getRight();
-//			rowType = StatementRowType.AMOUNT_ONLY;
-//			
-//			return Pair.of(rowType, parseDougble(strValue));
-//		} else {
-//			String[] strs = strValue.split("\\s+");
-//			if (strs.length > 1) {
-//				rowType = StatementRowType.AMOUNT_WITH_DETAILS;
-//				var pair = stripDollarSignIfAny(strs[strs.length - 1]);
-//				if (!pair.getLeft()) {
-//					return null;
-//				}
-//				strValue = pair.getRight();
-//				
-//				return Pair.of(rowType, parseDougble(strValue)); 
-//			}
-//		}
-//
-//		return null;
-//	}
-//	
-//	private Double parseDougble(String str) {
-//		if(str.isEmpty()) {
-//			return null;
-//		}
-//		
-//		str = str.replaceAll(",", "");
-//		
-//		try {
-//			return Double.parseDouble(str);
-//		}
-//		catch (NumberFormatException e) {
-//			System.out.println(str + " is not a double.");
-//			return null;
-//		}
-//	}
-//
-//	private Pair<Boolean, String> stripDollarSignIfAny(String str) {
-//		
-//		if(str.startsWith("-$") || str.startsWith("$")) {
-//			return Pair.of(true, str.replace("$", ""));
-//		}
-//		
-//		return Pair.of(false, str);
-//	}
 
 	private void trace(String msg) {
 		if (debugFalg) {

@@ -5,5 +5,7 @@ public enum  TransactionCategory {
     LIQUOR,
     BARS_AND_RESTURANT,
     GAS,
+    ONLINE,
+    AUTOMOTIVE,
     UNKNOWN
 }

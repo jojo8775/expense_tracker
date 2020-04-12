@@ -11,7 +11,11 @@ import org.joda.time.DateTimeConstants;
 
 public class ContentParser {
     private final Map<String, Integer> validMonths = initializeValidMonths();
-
+    private final TransactionCategoryDetector categoryDetector;
+    public ContentParser(TransactionCategoryDetector categoryDetector) {
+    	this.categoryDetector = categoryDetector;
+    }
+    
     public List<TransactionInformation> parse(List<Pair<String, Double>> entries) {
         List<TransactionInformation> transactionDetailList = new ArrayList<TransactionInformation>();
         for(var entry : entries) {
@@ -25,7 +29,7 @@ public class ContentParser {
         String[] strArr = entry.getLeft().split("\\s+");
         
         var transactionInformation = new TransactionInformation();
-        transactionInformation.category = TransactionCategory.UNKNOWN;
+        transactionInformation.category = categoryDetector.detect(entry.getLeft()).category;
         transactionInformation.transactionDateTime = getTransactedDatetime(strArr);
         transactionInformation.value = entry.getRight();
         transactionInformation.originalStatement = entry.getLeft();
