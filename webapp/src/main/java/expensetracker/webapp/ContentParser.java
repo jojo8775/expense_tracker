@@ -16,16 +16,18 @@ public class ContentParser {
     	this.categoryDetector = categoryDetector;
     }
     
-    public List<TransactionInformation> parse(List<Pair<String, Double>> entries) {
+    public List<TransactionInformation> parse(List<Pair<String, Double>> entries, StatementSource source) {
         List<TransactionInformation> transactionDetailList = new ArrayList<TransactionInformation>();
         for(var entry : entries) {
-            transactionDetailList.add(extractTransactionInformation(entry));
+            transactionDetailList.add(extractTransactionInformation(entry, source));
         }
+        
+        
         
         return transactionDetailList;
     }
     
-    private TransactionInformation extractTransactionInformation(Pair<String, Double> entry) {
+    private TransactionInformation extractTransactionInformation(Pair<String, Double> entry, StatementSource source) {
         String[] strArr = entry.getLeft().split("\\s+");
         
         var transactionInformation = new TransactionInformation();
@@ -33,6 +35,7 @@ public class ContentParser {
         transactionInformation.transactionDateTime = getTransactedDatetime(strArr);
         transactionInformation.value = entry.getRight();
         transactionInformation.originalStatement = entry.getLeft();
+        transactionInformation.source = source;
                 
         return transactionInformation;
     }

@@ -19,6 +19,8 @@ public class TransactionCategoryDetector {
 	private final Set<String> liquorCategory = initializeLiquorKeywords();
 	private final Set<String> gasCategory = initializeGasKeywords();
 	private final Set<String> automotiveCategory = initializeAutomotiveKeywords();
+	private final Set<String> healthyLivingCategory = initializeHealthyLivingKeywords();
+	private final Set<String> monthlyBillCategory = initializeMonthlyBillKeywords();
 
 	public TransactionCategoryModel detect(String statement) {
 		String[] strArr = statement.split("\\s+");
@@ -49,6 +51,14 @@ public class TransactionCategoryDetector {
 
 			if (automotiveCategory.contains(str)) {
 				populateMap(TransactionCategory.AUTOMOTIVE, str, categoryHitMap);
+			}
+			
+			if (healthyLivingCategory.contains(str)) {
+				populateMap(TransactionCategory.HEALTHY_LIVING, str, categoryHitMap);
+			}
+			
+			if (monthlyBillCategory.contains(str)) {
+				populateMap(TransactionCategory.MONTHLY_BILL, str, categoryHitMap);
 			}
 		}
 
@@ -93,6 +103,9 @@ public class TransactionCategoryDetector {
 		keyWords.add("wholesale");
 		keyWords.add("wal-mart");
 		keyWords.add("spice");
+		keyWords.add("foods");
+		keyWords.add("dollarama");
+		keyWords.add("fruiticana");
 
 		return keyWords;
 	}
@@ -102,10 +115,17 @@ public class TransactionCategoryDetector {
 		keyWords.add("shawrma");
 		keyWords.add("kitchen");
 		keyWords.add("tang");
+		keyWords.add("brewing");
+		keyWords.add("bar");
+		keyWords.add("grill");
+		keyWords.add("irish");
+		keyWords.add("burrito");
+		keyWords.add("saravanaa");
+		keyWords.add("tavern");
 
 		return keyWords;
 	}
-
+	
 	private Set<String> initializeOnlineShoppingKeywords() {
 		var keyWords = new HashSet<String>();
 		keyWords.add("amzn");
@@ -130,6 +150,22 @@ public class TransactionCategoryDetector {
 	private Set<String> initializeAutomotiveKeywords() {
 		var keyWords = new HashSet<String>();
 		keyWords.add("lube");
+
+		return keyWords;
+	}
+	
+	private Set<String> initializeHealthyLivingKeywords(){
+		var keyWords = new HashSet<String>();
+		keyWords.add("drug");
+		keyWords.add("eyecare");
+
+		return keyWords;
+	}
+	
+	private Set<String> initializeMonthlyBillKeywords(){
+		var keyWords = new HashSet<String>();
+		keyWords.add("shaw");
+		keyWords.add("compass");
 
 		return keyWords;
 	}

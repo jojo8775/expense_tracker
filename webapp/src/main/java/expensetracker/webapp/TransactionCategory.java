@@ -7,5 +7,7 @@ public enum  TransactionCategory {
     GAS,
     ONLINE,
     AUTOMOTIVE,
+    HEALTHY_LIVING,
+    MONTHLY_BILL,
     UNKNOWN
 }

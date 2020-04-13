@@ -1,5 +1,6 @@
 package expensetracker.webapp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -14,8 +15,11 @@ public class Program {
 	public List<String> execute() {
 		var logger = new Logger();
 
-//		executeScotiaStatement(logger);
-		executeRbcStatement(logger);
+		List<TransactionInformation> transactions = new ArrayList<>(); 
+		transactions.addAll(executeScotiaStatement(logger));
+		transactions.addAll(executeRbcStatement(logger));
+		
+		new TransactionAggregator().aggregate(transactions);
 
 //		var result = new Gson().toJson(logger.getLogs());
 //		System.out.println(result);
@@ -23,19 +27,21 @@ public class Program {
 		return logger.getLogs();
 	}
 
-	private void executeScotiaStatement(Logger logger) {
+	private List<TransactionInformation> executeScotiaStatement(Logger logger) {
 		var entries = new TableDataExtractorMultiline().readPdf("/test_file_scotia.pdf", new SimpleDoubleExtractor());
 		var scrubbedEntries = new DataScrubberImpl(StatementSource.SCOTIA_CREDIT, logger).getScrubbedEntries(entries);
-		var transactionList = new ContentParser(new TransactionCategoryDetector()).parse(scrubbedEntries);
-		print(transactionList);
+		var transactionList = new ContentParser(new TransactionCategoryDetector()).parse(scrubbedEntries, StatementSource.SCOTIA_CREDIT);
+//		print(transactionList);
+		return transactionList;
 	}
 
-	private void executeRbcStatement(Logger logger) {
+	private List<TransactionInformation> executeRbcStatement(Logger logger) {
 		var entries = new TableDataExtractor().readPdf("/test_file.pdf", new DoubleExtractorWithDollarSign());
 		trace(entries);
 		var scrubbedEntries = new DataScrubberImpl(StatementSource.RBC_CREDIT, logger).getScrubbedEntries(entries);
-		var transactionList = new ContentParser(new TransactionCategoryDetector()).parse(scrubbedEntries);
-		print(transactionList);
+		var transactionList = new ContentParser(new TransactionCategoryDetector()).parse(scrubbedEntries, StatementSource.RBC_CREDIT);
+//		print(transactionList);
+		return transactionList;
 	}
 
 	private void print(List<TransactionInformation> transactionInfoList) {
